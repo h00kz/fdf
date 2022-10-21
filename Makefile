@@ -1,25 +1,47 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: jlarrieu <marvin@42.fr>                    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/10/21 16:35:42 by jlarrieu          #+#    #+#              #
+#    Updated: 2022/10/21 16:55:44 by jlarrieu         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-GNL		= gnl/get_next_line_bonus.c /
-			gnl/get_next_line_utils_bonus.c 
+SRC			=	main.c			\
+				src/read_file.c	\
+				src/keyboard.c	\
+				src/error.c
 
-SRC		= src/fdf.c 
+INCLUDE		= include/
+MLX			= minilibx-linux/
+LIBFT		= libft/
+CFLAGS		= -Werror -Wextra -Wall
+MLX_FLAGS	= -lm -lmlx -lX11 -lXext -g3
+NAME		= fdf
+LIB			= libft/libft.a minilibx-linux/libmlx.a
 
-INCLUDE = include/
-FLAGS	= -Werror -Wextra -Wall
-NAME	= fdf
-LIB		= libft/libft.a #minilibx_linux/libmlx.a
+BGreen		= '\033[1;32m'
+NC			= '\033[0m'
 
 all:
-	@make -C libft/ all
-	@make -C minilibx_linux/ all
-	gcc $(SRC) -o $(NAME) $(FLAGS) $(LIB) -I$(INCLUDE)
+	@make -C $(LIBFT) all
+	printf "${BGreen}Compiling libft finished !${NC}"
+	@make -C $(MLX) all
+	printf "${BGreen}Compiling MLX finished !${NC}"
+	@gcc $(SRC) -o $(NAME) $(LIB) $(CFLAGS) $(MLX_FLAGS) -L$(MLX) -I$(INCLUDE)
+	printf "${BGreen}Compiling FDF finished !${NC}"
 
 clean:
-	@make -C libft/ clean
-	@make -C minilibx_linux/ clean
+	@make -C $(LIBFT) clean
+	@make -C $(MLX) clean
 
 fclean: clean
-	/bin/rm -f $(NAME)
-	@make -C libft/ fclean
+	rm -f $(NAME)
+	@make -C $(LIBFT) fclean
 
 re: fclean all
+
+.PHONY: all clean fclean re

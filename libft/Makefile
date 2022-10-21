@@ -6,7 +6,7 @@
 #    By: jlarrieu <jlarrieu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/26 13:39:14 by jlarrieu          #+#    #+#              #
-#    Updated: 2022/10/21 13:03:12 by jlarrieu         ###   ########.fr        #
+#    Updated: 2022/10/21 16:49:22 by jlarrieu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,19 +68,19 @@ NAME = libft.a
 all: ${NAME}
 
 bonus: ${OBJ} ${BOBJ}
-		${AR} ${NAME} ${OBJ} ${BOBJ}
+		@${AR} ${NAME} ${OBJ} ${BOBJ}
 
 %.o: %.c
-		$(CC) ${CFLAGS} -c $< -o $@
+		@$(CC) ${CFLAGS} -c $< -o $@
 
 ${NAME}: ${OBJ}
-		${AR} $@ $^
+		@${AR} $@ $^
 
 clean:
-		${RM} ${OBJ} ${BOBJ}
+		@${RM} ${OBJ} ${BOBJ}
 
 fclean: clean
-		${RM} ${NAME}
+		@${RM} ${NAME}
 
 re: fclean all bonus
 
