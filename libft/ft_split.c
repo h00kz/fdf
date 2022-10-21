@@ -6,13 +6,13 @@
 /*   By: jlarrieu <jlarrieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 13:27:26 by jlarrieu          #+#    #+#             */
-/*   Updated: 2022/09/30 14:24:08 by jlarrieu         ###   ########.fr       */
+/*   Updated: 2022/10/21 11:15:16 by jlarrieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_count_word(char c, char const *str)
+static int	ft_count_word(char c, char const *str)
 {
 	int	count;
 	int	i;
