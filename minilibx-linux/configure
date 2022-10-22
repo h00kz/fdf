@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-set -e
+set -e -s
 
 BOLD="\033[1m"
 RESET="\033[0m"

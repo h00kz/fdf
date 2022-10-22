@@ -13,7 +13,9 @@
 SRC			=	main.c			\
 				src/read_file.c	\
 				src/keyboard.c	\
-				src/error.c
+				src/error.c		\
+				src/draw.c		\
+				src/utils.c
 
 INCLUDE		= include/
 MLX			= minilibx-linux/
@@ -27,20 +29,20 @@ BGreen		= '\033[1;32m'
 NC			= '\033[0m'
 
 all:
-	@make -C $(LIBFT) all
-	printf "${BGreen}Compiling libft finished !${NC}"
-	@make -C $(MLX) all
-	printf "${BGreen}Compiling MLX finished !${NC}"
+	@make -sC $(LIBFT) all
+	@echo ${BGreen}Compiling libft finished !${NC}
+	@make -sC $(MLX) all
+	@echo ${BGreen}Compiling MLX finished !${NC}
 	@gcc $(SRC) -o $(NAME) $(LIB) $(CFLAGS) $(MLX_FLAGS) -L$(MLX) -I$(INCLUDE)
-	printf "${BGreen}Compiling FDF finished !${NC}"
+	@echo $(BGreen)Compiling FDF finished !$(NC)
 
 clean:
-	@make -C $(LIBFT) clean
-	@make -C $(MLX) clean
+	@make -sC $(LIBFT) clean
+	@make -sC $(MLX) clean
 
 fclean: clean
 	rm -f $(NAME)
-	@make -C $(LIBFT) fclean
+	@make -sC $(LIBFT) fclean
 
 re: fclean all
 
