@@ -52,6 +52,6 @@ int	ft_key_handler(int keycode, t_fdf *fdf)
 		fdf->x_shift -= 2;
 	mlx_clear_window(fdf->mlx, fdf->win);
 	ft_draw(fdf);
-	printf("%d\n", keycode);
+	//printf("%d\n", keycode);
 	return (0);
 }

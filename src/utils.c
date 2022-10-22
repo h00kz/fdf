@@ -1,16 +1,23 @@
 #include "../include/fdf.h"
 
-float	ft_max(float a, float b)
+void	ft_zoom(t_point *start, t_point *end, int zoom)
 {
-	if (a > b)
-		return (a);
-	return (b);
+	start->x *= zoom;
+	start->y *= zoom;
+	end->x *= zoom;
+	end->y *= zoom;
 }
 
-float	ft_abs(float a)
+void	ft_shift(t_point *start, t_point *end, double x, double y)
 {
-	if (a < 0)
-		return (-a);
-	return (a);
+	start->x += x;
+	start->y += y;
+	end->x += x;
+	end->y += y;
 }
 
+void	ft_altitude(t_point *start, t_point *end, double altitude)
+{
+	start->z *= altitude;
+	end->z *= altitude;
+}

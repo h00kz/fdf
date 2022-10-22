@@ -27,6 +27,14 @@ typedef enum e_keys
 	KEY_X = 120
 }			t_keys;
 
+typedef struct s_color
+{
+	int a;
+	int	r;
+	int	g;
+	int	b;
+}				t_color;
+
 typedef struct s_point
 {
 	float	x;
@@ -49,6 +57,9 @@ typedef struct s_fdf
 	double	altitude;
 }				t_fdf;
 
+void	ft_zoom(t_point *start, t_point *end, int zoom);
+void	ft_shift(t_point *start, t_point *end, double x, double y);
+void	ft_altitude(t_point *start, t_point *end, double altitude);
 void	ft_isometric(t_point *point, double angle);
 void	ft_bresenham(t_point start, t_point end, t_fdf *data);
 void	ft_draw(t_fdf *data);
@@ -62,5 +73,5 @@ int		ft_get_height(const char *file_name);
 void	ft_read_map(const char *file_name, t_fdf *data);
 void	ft_free_matrix(int **matrix);
 void	ft_error(int **mat);
-
+int		ft_rgb_to_int(int r, int g, int b);
 #endif

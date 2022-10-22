@@ -15,7 +15,8 @@ SRC			=	main.c			\
 				src/keyboard.c	\
 				src/error.c		\
 				src/draw.c		\
-				src/utils.c
+				src/utils.c		\
+				src/color.c
 
 INCLUDE		= include/
 MLX			= minilibx-linux/

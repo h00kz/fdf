@@ -14,26 +14,19 @@ void	ft_bresenham(t_point start, t_point end, t_fdf *data)
 
 	start.z = data->z_matrix[(int)start.y][(int)start.x];
 	end.z = data->z_matrix[(int)end.y][(int)end.x];	
-	start.x *= data->zoom;
-	start.y *= data->zoom;
-	end.x *= data->zoom;
-	end.y *= data->zoom;
-	start.z *= data->altitude;
-	end.z *= data->altitude;
+	ft_zoom(&start, &end, data->zoom);
+	ft_altitude(&start, &end, data->altitude);
 	if (start.z > 0 || end.z > 0)
-		data->color = 0xff0066;
+		data->color = ft_rgb_to_int(200, 0, 0);
 	else if (start.z < 0 || end.z < 0)
-		data->color = 0x0066ff;
+		data->color = ft_rgb_to_int(0, 0, 200);
 	else
-		data->color = 0xffffff;
+		data->color = ft_rgb_to_int(255, 255, 255);
 	ft_isometric(&start, data->angle);
 	ft_isometric(&end, data->angle);
 	step.x = (end.x - start.x);
 	step.y = (end.y - start.y);
-	start.x += data->x_shift;
-	start.y += data->y_shift;
-	end.x += data->x_shift;
-	end.y += data->y_shift;
+	ft_shift(&start, &end, data->x_shift, data->y_shift);
 	max = fmax(fabs(step.x), fabs(step.y)); 
 	step.x /= max;
 	step.y /= max;

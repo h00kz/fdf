@@ -46,10 +46,10 @@ int	main(int ac, char **av)
 	fdf->mlx = mlx_init();
 	fdf->win = mlx_new_window(fdf->mlx, WINDOW_WIDTH, WINDOW_HEIGHT, "FDF");
 	fdf->zoom = 20;
-	fdf->angle = 0.80;
+	fdf->angle = 0.52;
 	fdf->altitude = 1;
-	fdf->x_shift = 200;
-	fdf->y_shift = 200;
+	fdf->x_shift = WINDOW_WIDTH / 3;
+	fdf->y_shift = WINDOW_HEIGHT / 3;
 	ft_read_map(av[1], fdf);
 	print_ma(fdf->z_matrix, fdf->height, fdf->width);
 	ft_draw(fdf);
