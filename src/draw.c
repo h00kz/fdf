@@ -1,44 +1,6 @@
 #include "../include/fdf.h"
-#include <math.h>
 
-void	ft_isometric(t_point *point, double angle)
-{
-	point->x = (point->x - point->y) * cos(angle);
-	point->y = (point->x + point->y) * sin(angle) - point->z;
-}
-
-void	ft_bresenham(t_point start, t_point end, t_fdf *data)
-{
-	t_point	step;
-	int		max;
-
-	start.z = data->z_matrix[(int)start.y][(int)start.x];
-	end.z = data->z_matrix[(int)end.y][(int)end.x];	
-	ft_zoom(&start, &end, data->zoom);
-	ft_altitude(&start, &end, data->altitude);
-	if (start.z > 0 || end.z > 0)
-		data->color = ft_rgb_to_int(200, 0, 0);
-	else if (start.z < 0 || end.z < 0)
-		data->color = ft_rgb_to_int(0, 0, 200);
-	else
-		data->color = ft_rgb_to_int(255, 255, 255);
-	ft_isometric(&start, data->angle);
-	ft_isometric(&end, data->angle);
-	step.x = (end.x - start.x);
-	step.y = (end.y - start.y);
-	ft_shift(&start, &end, data->x_shift, data->y_shift);
-	max = fmax(fabs(step.x), fabs(step.y)); 
-	step.x /= max;
-	step.y /= max;
-	while ((int)(start.x - end.x) || (int)(start.y - end.y))
-	{
-		mlx_pixel_put(data->mlx, data->win, (int)start.x, (int)start.y, data->color);
-		start.x += step.x;
-		start.y += step.y;
-	}
-}
-
-void	ft_draw(t_fdf *data)
+void	ft_draw_fdf(t_fdf *data)
 {
 	t_point start;
 	t_point	end;
@@ -64,5 +26,45 @@ void	ft_draw(t_fdf *data)
 			start.x++;
 		}
 		start.y++;
+	}
+}
+
+void	ft_draw(t_fdf *fdf)
+{
+	printf("zoom: %f\n ALT: %f", fdf->zoom, fdf->altitude);
+	ft_draw_background(&(fdf->img), ft_rgb_to_int(20, 20, 20));
+	ft_draw_fdf(fdf);
+	ft_draw_ui(&(fdf->img), (t_rect){5, 5, (WINDOW_WIDTH / 5) - 10, WINDOW_HEIGHT - 10, ft_rgb_to_int(150, 5, 30)});
+	ft_print_menu(fdf, 0xffffff);
+}
+
+void	ft_draw_ui(t_image *img, t_rect rect)
+{
+	int	i;
+	int j;
+
+	i = rect.y;
+	while (i < rect.y + rect.height)
+	{
+		j = rect.x;
+		while (j < rect.x + rect.width)
+			my_mlx_pixel_put(img, j++, i, rect.color);
+		++i;
+	}
+}
+void	ft_draw_background(t_image *img, int color)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < WINDOW_HEIGHT)
+	{
+		j = 0;
+		while (j < WINDOW_WIDTH)
+		{
+			my_mlx_pixel_put(img, j++, i, color);
+		}
+		++i;
 	}
 }

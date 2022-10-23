@@ -7,13 +7,29 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <stdlib.h>
-# include <X11/X.h>
-# include <X11/keysym.h>
 
 # include <stdio.h> // A DEGAGER
 
-# define WINDOW_WIDTH 1280
-# define WINDOW_HEIGHT 1024
+# define WINDOW_WIDTH 1800
+# define WINDOW_HEIGHT 1000
+
+typedef struct s_rect
+{
+	int	x;
+	int	y;
+	int width;
+	int height;
+	int color;
+}				t_rect;
+
+typedef struct	s_image
+{
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}				t_image;
 
 typedef enum e_keys
 {
@@ -27,19 +43,12 @@ typedef enum e_keys
 	KEY_X = 120
 }			t_keys;
 
-typedef struct s_color
-{
-	int a;
-	int	r;
-	int	g;
-	int	b;
-}				t_color;
-
 typedef struct s_point
 {
 	float	x;
 	float	y;
 	int		z;
+	int		color;
 }				t_point;
 
 typedef struct s_fdf
@@ -50,28 +59,43 @@ typedef struct s_fdf
 	int		height;
 	int		color;
 	int		**z_matrix;
-	int		zoom;
-	double	x_shift;
-	double	y_shift;
+	double	zoom;
+	t_point	shift;
 	double	angle;
 	double	altitude;
+	double	alpha;
+	double	beta;
+	int		isometric;
+	t_image	img;
 }				t_fdf;
 
+void	my_mlx_pixel_put(t_image *data, int x, int y, int color);
+float	ft_clamp(float value, float min, float max);
+int		ft_lerp(int a, int b, int f);
 void	ft_zoom(t_point *start, t_point *end, int zoom);
-void	ft_shift(t_point *start, t_point *end, double x, double y);
+void	ft_shift(t_point *start, t_point *end, t_point shift);
 void	ft_altitude(t_point *start, t_point *end, double altitude);
 void	ft_isometric(t_point *point, double angle);
 void	ft_bresenham(t_point start, t_point end, t_fdf *data);
-void	ft_draw(t_fdf *data);
+void    ft_set_color(t_point start, t_point end, int *data_color);
+void	ft_draw_background(t_image *img, int color);
+void	ft_draw_fdf(t_fdf *fdf);
+void	ft_draw_ui(t_image *img, t_rect rect);
+void	ft_draw(t_fdf *fdf);
+void	ft_rotation_matrix(t_point	*point, t_fdf *fdf);
 
 int		ft_mouse_handler(int button, int x, int y, t_fdf *fdf);
 int		ft_key_handler(int keycode, t_fdf *fdf);
 
+void	ft_init_fdf(t_fdf *fdf);
 void	ft_fill_matrix(int *z_point, char *line);
 int		ft_get_width(const char *file_name);
 int		ft_get_height(const char *file_name);
 void	ft_read_map(const char *file_name, t_fdf *data);
 void	ft_free_matrix(int **matrix);
 void	ft_error(int **mat);
-int		ft_rgb_to_int(int r, int g, int b);
+void	ft_close(t_fdf *fdf);
+int 	ft_close_window(t_fdf *fdf);
+int		ft_rgb_to_int(unsigned char r, unsigned char g, unsigned char b);
+void    ft_print_menu(t_fdf *fdf, unsigned int c);
 #endif

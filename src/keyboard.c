@@ -12,46 +12,38 @@
 
 #include "../include/fdf.h"
 
-int	ft_mouse_handler(int button, int x, int y, t_fdf *fdf)
-{
-	if (button == 4)
-		fdf->zoom += 2;
-	if (button == 5)
-		fdf->zoom -= 2;
-	printf("BUTTON: %d\t x: %d , y: %d\n", button, x, y);
-	mlx_clear_window(fdf->mlx, fdf->win);
-	ft_draw(fdf);
-	return (0);
-}
-
 int	ft_key_handler(int keycode, t_fdf *fdf)
 {
 	if (keycode == KEY_ESC)
 	{
-		mlx_destroy_window(fdf->mlx, fdf->win);
-		mlx_destroy_display(fdf->mlx);
-		ft_free_matrix(fdf->z_matrix);
+		ft_close(fdf);
 		exit(0);
 	}
-
-	if (keycode == 65364)
-		fdf->altitude += 0.3;
-	if (keycode == 65362)
-		fdf->altitude -= 0.3;
-	if (keycode == 65361)
-		fdf->angle += 0.05;
-	if (keycode == 65363)
-		fdf->angle -= 0.05;
+	if (keycode == 61) // +
+		fdf->altitude += 0.05;
+	if (keycode == 45) // -
+		fdf->altitude -= 0.05;
+	if (keycode == 65364) // left arrow
+		fdf->alpha += 0.01;
+	if (keycode == 65362) // right arrow
+		fdf->alpha -= 0.01;
+	if (keycode == 65361) // up arrow
+		fdf->beta += 0.01;
+	if (keycode == 65363) // down arrow
+		fdf->beta -= 0.01;
 	if (keycode == KEY_W)
-		fdf->y_shift -= 2;
+		fdf->shift.y -= 1;
 	if (keycode == KEY_S)
-		fdf->y_shift += 2;
-	if (keycode == KEY_A)
-		fdf->x_shift += 2;
+		fdf->shift.y += 1;
 	if (keycode == KEY_D)
-		fdf->x_shift -= 2;
-	mlx_clear_window(fdf->mlx, fdf->win);
+		fdf->shift.x += 1;
+	if (keycode == KEY_A)
+		fdf->shift.x -= 2;
+	if (keycode == 105)
+		fdf->isometric = -fdf->isometric;
 	ft_draw(fdf);
-	//printf("%d\n", keycode);
+	mlx_put_image_to_window(fdf->mlx, fdf->win, fdf->img.img, 0, 0);
+	ft_print_menu(fdf, 0xffffff);
+	printf("key:%d\t iso:%d\n", keycode, fdf->isometric);
 	return (0);
 }

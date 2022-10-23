@@ -10,21 +10,25 @@
 #                                                                              #
 # **************************************************************************** #
 
-SRC			=	main.c			\
-				src/read_file.c	\
-				src/keyboard.c	\
-				src/error.c		\
-				src/draw.c		\
-				src/utils.c		\
-				src/color.c
+SRC			= main.c			\
+			  src/read_file.c	\
+			  src/keyboard.c	\
+			  src/error.c		\
+			  src/draw.c		\
+			  src/utils.c		\
+			  src/color.c		\
+			  src/init.c		\
+			  src/graphic.c		\
+			  src/mouse.c		\
+			  src/print_menu.c
 
 INCLUDE		= include/
 MLX			= minilibx-linux/
 LIBFT		= libft/
-CFLAGS		= -Werror -Wextra -Wall
-MLX_FLAGS	= -lm -lmlx -lX11 -lXext -g3
+CFLAGS		= -Werror -Wextra -Wall -g
+MLX_FLAGS	= -lm -lmlx -lX11 -lXext
 NAME		= fdf
-LIB			= libft/libft.a minilibx-linux/libmlx.a
+LIB			= libft/libft.a minilibx-linux/libmlx_Linux.a
 
 BGreen		= '\033[1;32m'
 NC			= '\033[0m'
