@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jlarrieu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/24 10:56:16 by jlarrieu          #+#    #+#             */
+/*   Updated: 2022/10/24 15:59:30 by jlarrieu         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/fdf.h"
 
 float	ft_clamp(float value, float min, float max)
@@ -8,11 +20,6 @@ float	ft_clamp(float value, float min, float max)
 		return (max);
 	else
 		return (value);
-}
-
-int ft_lerp(int a, int b, int f)
-{
-	return a * (1.0 - f) + (b * f);
 }
 
 void	ft_zoom(t_point *start, t_point *end, int zoom)
@@ -35,24 +42,18 @@ void	ft_shift(t_point *start, t_point *end, t_point shift)
 
 void	ft_altitude(t_point *start, t_point *end, double altitude)
 {
-	start->z *= altitude / 2.0;
-	end->z *= altitude / 2.0;
+	start->z *= altitude / 20;
+	end->z *= altitude / 20;
 }
 
 void	my_mlx_pixel_put(t_image *data, int x, int y, int color)
 {
 	char	*dst;
 
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int *)dst = color;
-}
-
-void	ft_close(t_fdf *fdf)
-{
-	mlx_destroy_window(fdf->mlx, fdf->win);
-	mlx_destroy_image(fdf->mlx, fdf->img.img);
-	ft_free_matrix(fdf->z_matrix);
-	mlx_destroy_display(fdf->mlx);
-	free(fdf->mlx);
-	free(fdf);
+	if ((x >= 0 && x < WINDOW_WIDTH) && (y >= 0 && y < WINDOW_HEIGHT))
+	{
+		dst = data->addr + (y * data->line_length + \
+							x * (data->bits_per_pixel / 8));
+		*(unsigned int *)dst = color;
+	}
 }

@@ -2,7 +2,7 @@
 
 void	ft_draw_fdf(t_fdf *data)
 {
-	t_point start;
+	t_point	start;
 	t_point	end;
 
 	start.y = 0;
@@ -31,17 +31,20 @@ void	ft_draw_fdf(t_fdf *data)
 
 void	ft_draw(t_fdf *fdf)
 {
-	printf("zoom: %f\n ALT: %f\n", fdf->zoom, fdf->altitude);
-	ft_draw_background(&(fdf->img), ft_rgb_to_int(20, 20, 20));
+	ft_draw_background(&(fdf->img), ft_rgb_to_int(25, 25, 25));
 	ft_draw_fdf(fdf);
-	ft_draw_ui(&(fdf->img), (t_rect){5, 5, (WINDOW_WIDTH / 6) - 10, WINDOW_HEIGHT - 10, ft_rgb_to_int(150, 5, 30)});
-	ft_print_menu(fdf, 0xffffff);
+	ft_draw_ui(&(fdf->img), (t_rect){5, 5, \
+									(WINDOW_WIDTH / 6) - 10, \
+									WINDOW_HEIGHT - 10, \
+									ft_rgb_to_int(150, 5, 30)});
+	mlx_put_image_to_window(fdf->mlx, fdf->win, fdf->img.img, 0, 0);
+	ft_print_menu(fdf, 0x9f9f9f);
 }
 
 void	ft_draw_ui(t_image *img, t_rect rect)
 {
 	int	i;
-	int j;
+	int	j;
 
 	i = rect.y;
 	while (i < rect.y + rect.height)
@@ -55,6 +58,7 @@ void	ft_draw_ui(t_image *img, t_rect rect)
 		i++;
 	}
 }
+
 void	ft_draw_background(t_image *img, int color)
 {
 	int	i;

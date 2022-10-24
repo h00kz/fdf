@@ -69,6 +69,9 @@ typedef struct s_fdf
 	t_image	img;
 }				t_fdf;
 
+void	ft_process_step(t_point *step, t_point start, t_point end, int *max);
+void	ft_put_segment_pix(t_point *start, t_point end, \
+							t_point step, t_fdf *fdf);
 void	my_mlx_pixel_put(t_image *data, int x, int y, int color);
 float	ft_clamp(float value, float min, float max);
 int		ft_lerp(int a, int b, int f);
@@ -77,7 +80,7 @@ void	ft_shift(t_point *start, t_point *end, t_point shift);
 void	ft_altitude(t_point *start, t_point *end, double altitude);
 void	ft_isometric(t_point *point, double angle);
 void	ft_bresenham(t_point start, t_point end, t_fdf *data);
-void    ft_set_color(t_point start, t_point end, int *data_color);
+void	ft_set_color(t_point start, t_point end, int *data_color);
 void	ft_draw_background(t_image *img, int color);
 void	ft_draw_fdf(t_fdf *fdf);
 void	ft_draw_ui(t_image *img, t_rect rect);
@@ -94,8 +97,7 @@ int		ft_get_height(const char *file_name);
 void	ft_read_map(const char *file_name, t_fdf *data);
 void	ft_free_matrix(int **matrix);
 void	ft_error(int **mat);
-void	ft_close(t_fdf *fdf);
-int 	ft_close_window(t_fdf *fdf);
+int		ft_close(t_fdf *fdf);
 int		ft_rgb_to_int(unsigned char r, unsigned char g, unsigned char b);
-void    ft_print_menu(t_fdf *fdf, unsigned int c);
+void	ft_print_menu(t_fdf *fdf, unsigned int c);
 #endif
