@@ -31,10 +31,10 @@ void	ft_draw_fdf(t_fdf *data)
 
 void	ft_draw(t_fdf *fdf)
 {
-	printf("zoom: %f\n ALT: %f", fdf->zoom, fdf->altitude);
+	printf("zoom: %f\n ALT: %f\n", fdf->zoom, fdf->altitude);
 	ft_draw_background(&(fdf->img), ft_rgb_to_int(20, 20, 20));
 	ft_draw_fdf(fdf);
-	ft_draw_ui(&(fdf->img), (t_rect){5, 5, (WINDOW_WIDTH / 5) - 10, WINDOW_HEIGHT - 10, ft_rgb_to_int(150, 5, 30)});
+	ft_draw_ui(&(fdf->img), (t_rect){5, 5, (WINDOW_WIDTH / 6) - 10, WINDOW_HEIGHT - 10, ft_rgb_to_int(150, 5, 30)});
 	ft_print_menu(fdf, 0xffffff);
 }
 
@@ -48,8 +48,11 @@ void	ft_draw_ui(t_image *img, t_rect rect)
 	{
 		j = rect.x;
 		while (j < rect.x + rect.width)
-			my_mlx_pixel_put(img, j++, i, rect.color);
-		++i;
+		{
+			my_mlx_pixel_put(img, j, i, rect.color);
+			j++;
+		}
+		i++;
 	}
 }
 void	ft_draw_background(t_image *img, int color)
@@ -63,8 +66,9 @@ void	ft_draw_background(t_image *img, int color)
 		j = 0;
 		while (j < WINDOW_WIDTH)
 		{
-			my_mlx_pixel_put(img, j++, i, color);
+			my_mlx_pixel_put(img, j, i, color);
+			j++;
 		}
-		++i;
+		i++;
 	}
 }

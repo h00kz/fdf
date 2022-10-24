@@ -41,6 +41,8 @@ int	ft_key_handler(int keycode, t_fdf *fdf)
 		fdf->shift.x -= 2;
 	if (keycode == 105)
 		fdf->isometric = -fdf->isometric;
+	if (keycode == KEY_SPACE)
+		ft_init_fdf(fdf);
 	ft_draw(fdf);
 	mlx_put_image_to_window(fdf->mlx, fdf->win, fdf->img.img, 0, 0);
 	ft_print_menu(fdf, 0xffffff);

@@ -12,7 +12,7 @@ float	ft_clamp(float value, float min, float max)
 
 int ft_lerp(int a, int b, int f)
 {
-    return a * (1.0 - f) + (b * f);
+	return a * (1.0 - f) + (b * f);
 }
 
 void	ft_zoom(t_point *start, t_point *end, int zoom)
@@ -35,8 +35,8 @@ void	ft_shift(t_point *start, t_point *end, t_point shift)
 
 void	ft_altitude(t_point *start, t_point *end, double altitude)
 {
-	start->z *= altitude;
-	end->z *= altitude;
+	start->z *= altitude / 2.0;
+	end->z *= altitude / 2.0;
 }
 
 void	my_mlx_pixel_put(t_image *data, int x, int y, int color)
