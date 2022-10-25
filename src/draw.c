@@ -15,13 +15,13 @@ void	ft_draw_fdf(t_fdf *data)
 			{
 				end.y = start.y;
 				end.x = start.x + 1;
-				ft_bresenham(start, end, data);
+				ft_dda_aglo(start, end, data);
 			}
 			if (start.y < data->height - 1)
 			{
 				end.x = start.x;
 				end.y = start.y + 1;
-				ft_bresenham(start, end, data);
+				ft_dda_aglo(start, end, data);
 			}
 			start.x++;
 		}

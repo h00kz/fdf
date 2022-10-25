@@ -35,4 +35,5 @@ void	ft_init_fdf(t_fdf *fdf)
 	fdf->shift.x = WINDOW_WIDTH / 2;
 	fdf->shift.y = 340;
 	fdf->isometric = 1;
+	fdf->palette = 1;
 }

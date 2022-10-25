@@ -34,7 +34,7 @@ void	ft_rotation_matrix(t_point	*point, t_fdf *fdf)
 	point->z = (int)round((-x * sin(fdf->beta)) + (z * cos(fdf->beta)));
 }
 
-void	ft_bresenham(t_point start, t_point end, t_fdf *data)
+void	ft_dda_aglo(t_point start, t_point end, t_fdf *data)
 {
 	t_point	step;
 	int		max;
@@ -43,7 +43,10 @@ void	ft_bresenham(t_point start, t_point end, t_fdf *data)
 	end.z = data->z_matrix[(int)end.y][(int)end.x];
 	ft_zoom(&start, &end, ft_clamp(data->zoom, 2, 30));
 	ft_altitude(&start, &end, data->altitude);
-	ft_set_color(start, end, &(data->color));
+	if (data->palette == 2)
+		ft_set_color_red(start, end, &(data->color));
+	else
+		ft_set_color_wild(start, end, &(data->color));
 	if (data->isometric > 0)
 	{
 		ft_isometric(&start, data->angle);

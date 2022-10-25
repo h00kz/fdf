@@ -40,6 +40,13 @@ int	ft_key_handler(int keycode, t_fdf *fdf)
 		fdf->isometric = -fdf->isometric;
 	if (keycode == KEY_SPACE)
 		ft_init_fdf(fdf);
+	if (keycode == KEY_X)
+	{
+		if (fdf->palette == 1)
+			fdf->palette = 2;
+		else
+			fdf->palette = 1;
+	}
 	ft_draw(fdf);
 	return (0);
 }

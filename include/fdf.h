@@ -67,6 +67,7 @@ typedef struct s_fdf
 	double	beta;
 	int		isometric;
 	t_image	img;
+	int		palette;
 }				t_fdf;
 
 void	ft_process_step(t_point *step, t_point start, t_point end, int *max);
@@ -79,8 +80,9 @@ void	ft_zoom(t_point *start, t_point *end, int zoom);
 void	ft_shift(t_point *start, t_point *end, t_point shift);
 void	ft_altitude(t_point *start, t_point *end, double altitude);
 void	ft_isometric(t_point *point, double angle);
-void	ft_bresenham(t_point start, t_point end, t_fdf *data);
-void	ft_set_color(t_point start, t_point end, int *data_color);
+void	ft_dda_aglo(t_point start, t_point end, t_fdf *data);
+void	ft_set_color_wild(t_point start, t_point end, int *data_color);
+void	ft_set_color_red(t_point start, t_point end, int *data_color);
 void	ft_draw_background(t_image *img, int color);
 void	ft_draw_fdf(t_fdf *fdf);
 void	ft_draw_ui(t_image *img, t_rect rect);
